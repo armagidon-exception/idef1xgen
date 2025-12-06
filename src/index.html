@@ -4,16 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IDEF1X Diagram Generator</title>
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <script type="module" src="parser.js" defer></script>
-    <script type="module" src="renderer.js" defer></script>
-    <script type="module" src="ui.js" defer></script>
-    <script type="module" src="utils.js" defer></script>
-    <script src="elementBuilder.js" defer></script>
   </head>
   <body>
     <div class="container">
@@ -38,8 +28,7 @@
             <textarea
               id="markup"
               placeholder="Введите разметку диаграммы здесь..."
-            >
-            </textarea>
+            ></textarea>
           </div>
 
           <div class="controls">
@@ -55,27 +44,28 @@
 
           <div class="syntax-guide">
             <h4><i class="fas fa-info-circle"></i> Синтаксис разметки</h4>
-            <pre class="syntax-example"></pre>
+            <pre class="syntax-example">
+Entity EntityName {
++primary_key_attribute_name: type
+?optional_many_attribute_name: type
+*?singluar_optional_attribute_name: type
+*singlular_mandatory_attribute_name: type
+mandatory_many_attribute_name: type FK -> ForeignEntityName.foreignEntityId
+mandatory_many_attribute_name: type FK -> ForeignEntityName.foreignEntityId : "relationshipName"
+}
+Generalization GeneralizedEntityName {
+SubType1
+SubType2
+} (complete|partial) discriminator=DiscriminatorAttribute
+
+            </pre>
           </div>
         </div>
 
         <div class="output-section">
           <div class="section-title">
             <h3><i class="fas fa-eye"></i> Визуализация</h3>
-            <div class="legend">
-              <div class="legend-item">
-                <div class="legend-color" style="background: black"></div>
-                <span>Сильная сущность</span>
-              </div>
-              <div class="legend-item">
-                <div
-                  class="legend-color"
-                  style="background: black; border-radius: 5px"
-                ></div>
-                <span>Слабая сущность</span>
-              </div>
-            </div>
-
+            <button id="exportSVG" class="btn btn-secondary">Export SVG</button>
             <div class="zoom-controls">
               <button class="zoom-btn" onclick="zoomOut()">-</button>
               <button class="zoom-btn" onclick="resetZoom()">100%</button>
@@ -85,7 +75,7 @@
           </div>
 
           <div class="diagram-container" id="diagram-container">
-            <div id="diagram-area"></div>
+            <div id="diagram-objects"></div>
             <svg
               id="connections"
               style="

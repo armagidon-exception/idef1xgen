@@ -1,3 +1,15 @@
+interface HTMLElement {
+  withAttribute(qualifiedName: string, value: any): HTMLElement;
+  withAttributes(props: Object): HTMLElement;
+  withChild(...children: HTMLElement[]): HTMLElement;
+  withStyle(style: string, value: any): HTMLElement;
+  withStyles(...styles: Object[]): HTMLElement;
+  clear(): HTMLElement;
+  withClass(clazz: string): HTMLElement;
+  withClasses(...clazz: string[]): HTMLElement;
+  withText(text: string): HTMLElement;
+}
+ 
 HTMLElement.prototype.withAttribute = function (qualifiedName, value) {
   if (typeof value === "string") {
     this.setAttribute(qualifiedName, value);

@@ -1,0 +1,43 @@
+{
+  "name": "idef1x-generator",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "webpack --env mode=production",
+    "build:dev": "webpack --env mode=development",
+    "start": "webpack serve -- --env mode=development",
+    "deploy": "gh-pages -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/armagidon-exception/idef1xgen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "private": true,
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/armagidon-exception/idef1xgen/issues"
+  },
+  "homepage": "https://armagidon-exception.github.io/idef1xgen",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "downloadjs": "^1.4.7",
+    "html-to-image": "^1.11.13"
+  },
+  "devDependencies": {
+    "@types/downloadjs": "^1.4.6",
+    "@types/node": "^24.10.1",
+    "@types/webpack": "^5.28.5",
+    "css-loader": "^7.1.2",
+    "gh-pages": "^6.3.0",
+    "html-webpack-plugin": "^5.6.5",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "webpack": "^5.103.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  }
+}

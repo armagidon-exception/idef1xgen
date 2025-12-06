@@ -8,9 +8,9 @@
 body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
+  width: 100%;
   padding: 20px;
   color: #333;
-  overflow: hidden;
 }
 
 .container {
@@ -168,20 +168,19 @@ textarea:focus {
   position: relative;
   overflow: auto;
   background: #f8f9fa;
-}
-
-#diagram-area {
-  position: relative;
-  width: 3000px;
-  height: 3000px;
-  min-width: 3000px;
-  min-height: 3000px;
-  background: white;
   background-image:
     linear-gradient(#e0e0e0 1px, transparent 1px),
     linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
   background-size: 50px 50px;
   transform-origin: 0 0;
+}
+
+#diagram-objects {
+  position: relative;
+  width: 3000px;
+  height: 3000px;
+  min-width: 3000px;
+  min-height: 3000px;
   transition: transform 0.3s ease;
 }
 
@@ -484,4 +483,9 @@ textarea:focus {
   stroke-width: 1px;
   transform: translate(-50%, -50%) rotate(45deg);
   transform-origin: center;
+}
+
+#exportSVG {
+    max-width: max-content;
+    display: block;
 }
