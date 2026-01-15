@@ -45,19 +45,115 @@
           <div class="syntax-guide">
             <h4><i class="fas fa-info-circle"></i> Синтаксис разметки</h4>
             <pre class="syntax-example">
-Entity EntityName {
-+primary_key_attribute_name: type
-?optional_many_attribute_name: type
-*?singluar_optional_attribute_name: type
-*singlular_mandatory_attribute_name: type
-mandatory_many_attribute_name: type FK -> ForeignEntityName.foreignEntityId
-mandatory_many_attribute_name: type FK -> ForeignEntityName.foreignEntityId : "relationshipName"
-}
-Generalization GeneralizedEntityName {
-SubType1
-SubType2
-} (complete|partial) discriminator=DiscriminatorAttribute
+Язык разметки IDEF1X Diagram Generator
+========================================
 
+ОБЩЕЕ
+------
+- Комментарии: строки, начинающиеся с //, игнорируются.
+- Регистр имён сущностей и атрибутов сохраняется.
+- Поддерживаются кириллические имена.
+
+СУЩНОСТИ (Entity)
+-----------------
+Определение сущности:
+  Entity ИмяСущности {
+    атрибуты...
+  }
+
+Пример:
+  Entity Book {
+    +ISBN: string
+    title: string
+    ?year: number
+    category_id: number FK -> Category.id
+  }
+
+АТРИБУТЫ
+--------
+Формат атрибута:
+  [*]?[+?]?имя : тип [FK -> ВнешняяСущность.внешнийАтрибут [: "имяСвязи"]]
+
+Префиксы:
+  +   - первичный ключ (обязательный)
+  ?   - опциональный (может быть NULL)
+  *   - единичная связь (singular, не many)
+  (отсутствие *) - множественная связь (many)
+
+Тип: произвольная строка (string, number, date, etc.)
+
+Внешний ключ (FK):
+  Указание FK создаёт отношение между сущностями.
+  Можно задать имя связи (необязательно).
+
+Примеры атрибутов:
+  +id: number                     // первичный ключ
+  ?name: string                   // опциональный атрибут
+  *?phone: string                 // единичный опциональный
+  *email: string                  // единичный обязательный
+  category_id: number FK -> Category.id  // внешний ключ
+  author_id: number FK -> Author.id : "написал"  // с именем связи
+
+ОТНОШЕНИЯ (Relationship)
+------------------------
+Отношение можно определить отдельно, если не указано в атрибуте:
+  Relationship Сущность1.атрибут1 -> Сущность2.атрибут2 [: "имяСвязи"]
+
+Пример:
+  Relationship Book.author_id -> Author.id : "написал"
+
+ОБОБЩЕНИЯ (Generalization)
+--------------------------
+Определение наследования (категоризации):
+  Generalization РодительскаяСущность {
+    Подтип1
+    Подтип2
+    ...
+  } complete|partial [discriminator=ИмяДискриминатора]
+
+Параметры:
+  complete   - полное покрытие (все подтипы перечислены)
+  partial    - неполное покрытие (возможны другие подтипы)
+  discriminator - атрибут-дискриминатор (отображается на диаграмме)
+
+Пример:
+  Generalization Person {
+    Student
+    Employee
+  } complete discriminator=Role
+
+ПОЛНЫЙ ПРИМЕР
+-------------
+Entity Category {
+  +id: number
+  name: string
+}
+
+Entity Book {
+  +ISBN: string
+  title: string
+  ?year: number
+  category_id: number FK -> Category.id
+}
+
+Entity Author {
+  +id: number
+  name: string
+  *?phone: string
+}
+
+Relationship Book.author_id -> Author.id : "написал"
+
+Generalization Person {
+  Student
+  Employee
+} complete discriminator=Role
+
+ПРИМЕЧАНИЯ
+----------
+- Сущности автоматически располагаются на диаграмме; можно перетаскивать.
+- На диаграмме отображаются кардинальности (P - many, Z - optional).
+- Экспорт в SVG доступен через кнопку Export SVG.
             </pre>
           </div>
         </div>
