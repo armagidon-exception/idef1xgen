@@ -40,12 +40,9 @@ window.resetZoom = function () {
 };
 
 function updateZoom() {
-  const diagramArea = document.getElementById("diagram-objects");
-  const connections = document.getElementById("connections");
+  const diagramArea = document.getElementById("diagram-container");
   const zoomLevel = document.getElementById("zoom-level");
-
   diagramArea.style.transform = `scale(${scale})`;
-  connections.style.transform = `scale(${scale})`;
 
   zoomLevel.textContent = `${Math.round(scale * 100)}%`;
 }
